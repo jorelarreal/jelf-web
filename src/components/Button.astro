@@ -1,0 +1,41 @@
+---
+// Boton.astro
+interface Props {
+  variant?: "primary" | "secondary";
+  href?: string;
+  className?: string;
+  type?: "button" | "submit" | "reset";
+}
+
+const { 
+  variant = "primary", 
+  href, 
+  className = "", 
+  type = "button" 
+} = Astro.props;
+
+// Clases base comunes a todos los botones
+const baseClasses = "text-xl font-normal text-white border rounded-2xl px-6 py-2 hover:scale-105 hover-transt";
+
+// Clases por variante
+const variantClasses = {
+  primary: "bg-gradient-to-r from-gray-3 to-gray-2/50 hover:to-gray-3 border-gray-2",
+  secondary: "bg-gradient-to-r from-purple-2 via-purple-glow to-purple-3 hover:from-purple-glow hover:to-purple-glow border-purple-1 hover:shadow-lg shadow-purple-glow",
+};
+---
+
+{href ? (
+  <a
+    href={href}
+    class={`${baseClasses} ${variantClasses[variant]} ${className}`}
+  >
+   <slot />
+  </a>
+) : (
+  <button
+    type={type}
+    class={`${baseClasses} ${variantClasses[variant]} ${className}`}
+  >
+   <slot />
+  </button>
+)}
