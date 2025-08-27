@@ -4,7 +4,7 @@
 @theme{
 
     --color-gray-1: #9D9A9A;
-    --color-gray-2: #424141;
+    --color-gray-2: #6E6D6D;
     --color-gray-3: #121212;
     --color-gray-4: #383838;
     --color-gray-5: #161616;
@@ -45,3 +45,29 @@ ul, ol {
     background-size: 150% auto;
     animation: glow-gradient 3s ease infinite alternate;
   }
+
+@keyframes sweep-mask-animation {
+  0% {
+    /* La máscara empieza fuera, a la izquierda */
+    mask-position: -200% 0;
+  }
+  100% {
+    /* La máscara termina fuera, a la derecha */
+    mask-position: 200% 0;
+  }
+}
+
+.logo-mask-sweep {
+  /* La máscara es un gradiente que revela una parte del logo blanco */
+  mask-image: linear-gradient(
+    -75deg,
+    rgba(0, 0, 0, 0) 30%,
+    rgba(0, 0, 0, 1) 50%, /* La parte opaca es la "luz" que revela el logo blanco */
+    rgba(0, 0, 0, 0) 70%
+  );
+  mask-size: 200% auto;
+  mask-repeat: no-repeat;
+  
+  /* Aplicamos la animación que mueve la máscara */
+  animation: sweep-mask-animation 2.5s infinite linear;
+}

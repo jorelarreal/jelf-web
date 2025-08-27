@@ -1,22 +1,54 @@
+---
+// 1. Definimos las props que el layout recibirá de cada página.
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+// 2. Extraemos las props y establecemos valores por defecto.
+const {
+  title = "JELF STUDIO - ESTUDIO DE DISEÑO & BRANDING",
+  description = "Soluciones de diseño especializadas en branding, diseño gráfico, packaging y diseño web para potenciar tu marca.",
+  image = "/banner-jelf.webp", // Asegúrate de tener esta imagen en tu carpeta `public/`
+} = Astro.props;
+
+// 3. Creamos la URL absoluta para la imagen social, que es requerida por las redes sociales.
+const socialImageURL = new URL(image, Astro.url.origin).href;
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body class="bg-black text-white">
-		<slot />
-	</body>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
+  </head>
+  <body class="bg-black text-white">
+    <slot />
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
